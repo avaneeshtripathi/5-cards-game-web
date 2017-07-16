@@ -40,7 +40,7 @@ export default class Container extends React.Component{
     }
 
     setGameLimit (gameLimit) {
-        this.navigationIndex = 3;
+        this.navigationIndex = 4;
         setSession('gameLimit', gameLimit);
         setSession('navigationIndex', this.navigationIndex);
         this.setState(this.state);
