@@ -15,7 +15,7 @@ class PlayerDetails extends React.Component{
         if (playerName && playerName.trim()) {
             this.refs.nameInput.value = '';
             this.setState({
-                playerList: [...this.state.playerList, playerName.trim().toLowerCase()]
+                playerList: [...this.state.playerList, playerName.trim().toLowerCase().substring(0, 4)]
             });
         }
     }
