@@ -49,7 +49,7 @@ class PlayerDetails extends React.Component{
                 <h3>Enter Player List</h3>
                 <form className="getPlayerInfoForm" onSubmit={this.onSubmit}>
                     <div className="input-group">
-                        <input autoFocus={true} required={true} ref="nameInput" type="text" className="form-control" placeholder="Enter Player Names" />
+                        <input maxLength="4" autoFocus={true} required={true} ref="nameInput" type="text" className="form-control" placeholder="Enter Player Names" />
                         <span className="input-group-addon cursorPointer" onClick={this.onSubmit}>
                             <i className="glyphicon glyphicon-plus"></i>
                         </span>

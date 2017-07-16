@@ -61,25 +61,23 @@ class GameResults extends React.Component{
 
     getAvatarImage (playerRank) {
         let primaryImageUrl, secondaryImageUrl;
-        if (playerRank) {
-            if (playerRank === this.playerData.length) {
-                primaryImageUrl = rabbitImage;
-            } else {
-                primaryImageUrl = cockImage;
-            }
+        if (playerRank && playerRank === this.playerData.length) {
+            primaryImageUrl = rabbitImage;
+        } else if (playerRank && playerRank > 1) {
+            primaryImageUrl = cockImage;
         } else {
             primaryImageUrl = tortoiseImage;
             secondaryImageUrl = winnerImage;
         }
         return (
             <div className="resultImageSection">
-                {!playerRank
+                {secondaryImageUrl
                     ? <div className="winnerImage">
                           <img src={secondaryImageUrl} />
                       </div>
                     : null
                 }
-                <div style={{width: !playerRank || playerRank === this.playerData.length ? '60px' : '40px'}} className="imageWrapper">
+                <div className={!playerRank || playerRank === this.playerData.length ? 'imageWrapper imageLarge' : 'imageWrapper imageSmall'}>
                     <img src={primaryImageUrl} />
                 </div>
             </div>
@@ -95,7 +93,12 @@ class GameResults extends React.Component{
                 <h3>Game Stats</h3>
                 <div className="resultsListing displayTable text-center">
                     {_.map(this.playerData, (row, key) => {
-                        let backgroundColor = row.rank ? (row.rank === this.playerData.length ? '#c9302c' : '#33B786') : '#337ab7';
+                        let backgroundColor = '#337ab7';
+                        if (row.rank && row.rank === this.playerData.length) {
+                            backgroundColor = '#c9302c';
+                        } else if (row.rank && row.rank > 1) {
+                            backgroundColor = '#33B786';
+                        }
                         return (
                             <div key={key} style={{width: `${100/this.playerData.length}%`}} className="displayTableCell text-capitalize">
                                 {this.getAvatarImage(row.rank)}
