@@ -18,14 +18,15 @@ export default class Container extends React.Component{
         this.setAviOneup = this.setAviOneup.bind(this);
         this.showGameResults = this.showGameResults.bind(this);
         this.resetGame = this.resetGame.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
     getCurrentView () {
         switch(this.navigationIndex) {
             case 1: return (<PlayerDetails updatePlayerList={this.updatePlayerList} />);
-            case 2: return (<GameStats setGameLimit={this.setGameLimit} />);
-            case 3: return (<AdditionalStats setAviOneup={this.setAviOneup} />);
-            case 4: return (<GamePlay showGameResults={this.showGameResults} />);
+            case 2: return (<GameStats goBack={this.goBack} resetGame={this.resetGame} setGameLimit={this.setGameLimit} />);
+            case 3: return (<AdditionalStats goBack={this.goBack} resetGame={this.resetGame} setAviOneup={this.setAviOneup} />);
+            case 4: return (<GamePlay goBack={this.goBack} resetGame={this.resetGame} showGameResults={this.showGameResults}  />);
             case 5: return (<GameResults resetGame={this.resetGame} />);
             default: return 'Something went wrong. Please Refresh the page';
         }
@@ -40,8 +41,8 @@ export default class Container extends React.Component{
     }
 
     setGameLimit (gameLimit) {
-        this.navigationIndex = 4;
-        setSession('gameLimit', gameLimit);
+        this.navigationIndex = 3;
+        setSession('gameLimit', {value: gameLimit, isEditable: true});
         setSession('navigationIndex', this.navigationIndex);
         this.setState(this.state);
     }
@@ -59,10 +60,17 @@ export default class Container extends React.Component{
         this.setState(this.state);
     }
 
-    resetGame () {
+    resetGame (event = {preventDefault(){}}) {
+        event.preventDefault();
         this.navigationIndex = 1;
         clearSession();
         this.setState(this.state);
+    }
+
+    goBack (navIndex) {
+      this.navigationIndex = navIndex;
+      setSession('navigationIndex', this.navigationIndex);
+      this.setState(this.state);
     }
 
     render () {

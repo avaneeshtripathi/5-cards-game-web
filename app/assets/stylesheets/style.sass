@@ -98,6 +98,7 @@ header
   button
     margin-bottom: 10px
     font-weight: bold
+    white-space: normal
 
 .oneupRules
   padding-left: 10px
@@ -132,6 +133,9 @@ header
     line-height: 20px
   .playerFinished
     background-color: #d43f3a
+    color: #fff
+  .oneupWrapper
+    background-color: #4cae4c
     color: #fff
 
 .gameResultsWrapper
@@ -183,6 +187,42 @@ header
   width: 240px
   margin: 0 auto
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.4)
+  position: relative
+
+.gamePlayLimitInput
+  background: transparent
+  width: 100%
+  border: 1px solid #fff
+  padding: 2px 36px 2px 8px
+  line-height: 24px
+  font-size: 16px
+
+.gamePlayLimitButton
+  position: absolute
+  background: transparent
+  border: none
+  right: 20px
+  top: 8px
+  font-size: 22px
+
+.gamePlayLimitEditButton
+  background: transparent
+  border: none
+  font-size: 20px
+  vertical-align: text-bottom
+  margin-left: 6px
+
+.gamePlayHeader
+  .buttonWrapper
+    width: 30%
+  .oneupWrapper
+    width: 40%
+  button
+    width: 100%
+
+.gamePlayResetButton
+  background-color: #d43f3a
+  width: 140px
 
 .resultsListing
   width: 100%

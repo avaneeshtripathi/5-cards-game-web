@@ -36,7 +36,10 @@ class GameStats extends React.Component{
                     <div className="input-group">
                         <input autoFocus={true} ref="nameInput" type="number" className="form-control" placeholder="Enter Game Limit" />
                     </div>
-                    <button className="btn btn-info">Set Limit</button>
+                    <div className="clearfix">
+                        <button className="btn btn-info pull-left">Set Limit</button>
+                        <button className="btn btn-danger pull-right" onClick={this.props.resetGame}>Reset Game</button>  
+                    </div>
                 </form>
             </div>
         );

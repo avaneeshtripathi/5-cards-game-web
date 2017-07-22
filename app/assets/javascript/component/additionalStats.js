@@ -19,7 +19,7 @@ class AdditionalStats extends React.Component{
         this.refs.notificationMessage.setAttribute('style', 'opacity: 1');
         setTimeout(() => {
             this.refs.notificationMessage.setAttribute('style', 'opacity: 0');
-            this.props.setAviOneup(status);
+            this.props.setAviOneup({status: status, value: 50});
         }, 1000);
     }
 
