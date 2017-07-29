@@ -3,6 +3,9 @@ export function getLineChartConfig (seriesData, graphHeight) {
         chart: {
             height: graphHeight
         },
+        credits: {
+            enabled: false
+        },
         title: {
             text: ''
         },

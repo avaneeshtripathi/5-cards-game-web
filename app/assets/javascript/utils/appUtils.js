@@ -1,9 +1,9 @@
 export function getClassSet (classObject) {
-    if(!_.isObject(classObject)) {
+    if(!underscore.isObject(classObject)) {
         return '';
     }
-    return _.chain(classObject).map((flag, className) => {
-        if(_.isString(className) && _.isBoolean(flag)) {
+    return underscore.chain(classObject).map((flag, className) => {
+        if(underscore.isString(className) && underscore.isBoolean(flag)) {
             return flag ? className : '';
         }
     }).compact().join(' ').value();

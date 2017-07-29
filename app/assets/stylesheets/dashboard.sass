@@ -1,0 +1,82 @@
+.gameListWrapper
+  list-style-type: none
+  padding: 0
+
+.gameListCard
+  padding: 40px 0 182px
+  box-shadow: 0 2px 12px 0px rgba(0,0,0,0.4)
+  margin-bottom: 30px
+  position: relative
+  overflow: hidden
+  background-color: #fff
+  &:hover
+    .playNowOverlay
+      display: block
+  h2
+    font-size: 20px
+    line-height: 30px
+  .activeLabel
+    position: absolute
+    background-color: #00C853
+    transform: rotate(-45deg)
+    top: 18px
+    left: -24px
+    padding: 2px 30px
+    color: #fff
+    font-size: 12px
+    line-height: 18px
+    font-weight: bold
+    box-shadow: 0 2px 12px 0px rgba(0, 0, 0, 0.4)
+
+.playNowOverlay
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  background: rgba(113, 113, 113, 0.55)
+  z-index: 0
+  button
+    background: none
+    padding: 14px 50px
+    text-transform: uppercase
+    letter-spacing: 1px
+    font-weight: 700
+    position: relative
+    -webkit-transition: all 0.3s
+    -moz-transition: all 0.3s
+    transition: all 0.3s
+    border: 3px solid #fff
+    color: #fff
+    overflow: hidden
+    top: 50%
+    margin-top: -27px
+    &:hover
+      color: #0e83cd
+      &::after
+        height: 260%
+        opacity: 1
+        color: rgb(113, 113, 113)
+    &::after
+      content: ''
+      position: absolute
+      z-index: -1
+      -webkit-transition: all 0.3s
+      -moz-transition: all 0.3s
+      transition: all 0.3s
+      width: 100%
+      height: 0
+      top: 50%
+      left: 50%
+      background: #fff
+      opacity: 0
+      -webkit-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+      -moz-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+      -ms-transform: translateX(-50%) translateY(-50%) rotate(45deg)
+      transform: translateX(-50%) translateY(-50%) rotate(45deg)
+
+.fiveCardsGameCard
+  background: #fff url('../images/5cardsGame.png') no-repeat
+  background-position-y: 80px
+  background-position-x: -30px

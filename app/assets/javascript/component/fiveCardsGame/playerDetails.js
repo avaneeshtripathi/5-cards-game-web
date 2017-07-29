@@ -57,7 +57,7 @@ class PlayerDetails extends React.Component{
                 </form>
                 {this.state.playerList && this.state.playerList.length
                     ? <ul className="playerListing clearfix">
-                          {_.map(this.state.playerList, (row, key) => {
+                          {underscore.map(this.state.playerList, (row, key) => {
                               return (
                                   <li className="pull-left" key={key}>
                                       {row}
@@ -68,7 +68,10 @@ class PlayerDetails extends React.Component{
                       </ul>
                     : null
                 }
-                <button className="btn btn-info" onClick={this.doneAdding}>Done adding players</button>
+                <div className="clearfix">
+                    <button className="btn btn-info" onClick={this.doneAdding}>Done!</button>
+                    <button className="btn btn-danger pull-right" onClick={this.props.resetGame}>Reset Game</button>
+                </div>
             </div>
         );
     }

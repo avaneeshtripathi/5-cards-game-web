@@ -1,5 +1,5 @@
-import {getSession, setSession} from '../utils/sessionUtils';
-import {getClassSet} from '../utils/appUtils';
+import {getSession, setSession} from '../../utils/sessionUtils';
+import {getClassSet} from '../../utils/appUtils';
 
 const oneupPoints = [50, 25, 10];
 
@@ -11,7 +11,7 @@ class GamePlay extends React.Component{
         this.state = {
             playerData: getSession('playerData')
                 ? getSession('playerData')
-                : _.map(this.playerList, (row, key) => {
+                : underscore.map(this.playerList, (row, key) => {
                       return {
                           name: row,
                           points: [],
@@ -33,14 +33,14 @@ class GamePlay extends React.Component{
             let playerData = this.state.playerData;
             playerData[playerIndex].points[pointIndex] = Number(event.target.value);
             playerData[playerIndex].oneup[pointIndex] = false;
-            playerData[playerIndex].total = _.reduce(playerData[playerIndex].points, (memo, num) => (memo + num), 0);
+            playerData[playerIndex].total = underscore.reduce(playerData[playerIndex].points, (memo, num) => (memo + num), 0);
             if (playerData[playerIndex].total >= this.state.gameLimit.value && this.aviOneup.status) {
-                let oneupIndex = _.indexOf(playerData[playerIndex].points, 50);
+                let oneupIndex = underscore.indexOf(playerData[playerIndex].points, 50);
                 if (oneupIndex !== -1) {
                     playerData[playerIndex].points[oneupIndex] = playerData[playerIndex].points[oneupIndex] - this.aviOneup.value;
                     playerData[playerIndex].total = playerData[playerIndex].total - this.aviOneup.value;
                     playerData[playerIndex].oneup[oneupIndex] = true;
-                    let oneupPointIndex = _.indexOf(oneupPoints, this.aviOneup.value);
+                    let oneupPointIndex = underscore.indexOf(oneupPoints, this.aviOneup.value);
                     this.aviOneup.value = oneupPoints[oneupPointIndex + 1];
                     if (!this.aviOneup.value) {
                         this.aviOneup.value = 50;
@@ -59,7 +59,7 @@ class GamePlay extends React.Component{
                 }
             }
             setSession('playerData', playerData);
-            let playerCount = _.countBy(playerData, (row) => row.hasFinished ? 'finished' : 'notFinished');
+            let playerCount = underscore.countBy(playerData, (row) => row.hasFinished ? 'finished' : 'notFinished');
             if (playerCount.notFinished === 1) {
                 this.viewResults();
             }
@@ -71,7 +71,7 @@ class GamePlay extends React.Component{
 
     getMaxArrayLength () {
         let arrayLengths = [];
-        _.times(this.playerList.length, (key) => {
+        underscore.times(this.playerList.length, (key) => {
             arrayLengths.push(this.state.playerData[key].points.length);
         });
         return Math.max(...arrayLengths);
@@ -99,7 +99,7 @@ class GamePlay extends React.Component{
             <div className="gamePlayView">
                 <ul ref="gamePlayWrapper" className="gamePlayWrapper displayTable">
                     <li className="displayTableRow" key={Math.random()}>
-                        {_.times(this.playerList.length, (columnKey) => {
+                        {underscore.times(this.playerList.length, (columnKey) => {
                             return (
                                 <div style={{width: `${100/this.playerList.length}%`}} className={playerData[columnKey].total >= this.state.gameLimit.value ? "playerFinished displayTableCell tableHeader" : 'displayTableCell tableHeader'} key={columnKey}>
                                     {this.playerList[columnKey]}
@@ -107,10 +107,10 @@ class GamePlay extends React.Component{
                             );
                         })}
                     </li>
-                    {_.times(maxArrayLength + 1, (rowKey) => {
+                    {underscore.times(maxArrayLength + 1, (rowKey) => {
                         return (
                             <li className="displayTableRow" key={rowKey}>
-                                {_.times(this.playerList.length, (columnKey) => {
+                                {underscore.times(this.playerList.length, (columnKey) => {
                                     let cellClass = getClassSet({
                                         'displayTableCell': true,
                                         'playerFinished': playerData[columnKey].total >= this.state.gameLimit.value,
@@ -129,7 +129,7 @@ class GamePlay extends React.Component{
                         );
                     })}
                     <li className="displayTableRow" key={Math.random()}>
-                        {_.times(this.playerList.length, (columnKey) => {
+                        {underscore.times(this.playerList.length, (columnKey) => {
                             return (
                                 <div className={playerData[columnKey].total >= this.state.gameLimit.value ? "playerFinished displayTableCell tableHeader" : 'displayTableCell tableHeader'} key={columnKey}>
                                     {playerData[columnKey].total}

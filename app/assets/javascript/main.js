@@ -1,4 +1,4 @@
-require('../stylesheets/style.sass');
+require('../stylesheets/base.sass');
 import ReactDOM from 'react-dom';
 import Root from './container/index';
 

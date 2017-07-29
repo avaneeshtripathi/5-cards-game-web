@@ -1,11 +1,11 @@
 import ReactHighcharts from 'react-highcharts';
-import { getLineChartConfig } from '../utils/lineChartConfig';
-import { getSession, setSession } from '../utils/sessionUtils';
-const tortoiseImage  = require('../../images/tortoise.png');
-const rabbitImage  = require('../../images/rabbit.png');
-const cockImage  = require('../../images/cock.png');
-const loserImage  = require('../../images/loser.png');
-const winnerImage  = require('../../images/winner.png');
+import { getLineChartConfig } from '../../utils/lineChartConfig';
+import { getSession, setSession } from '../../utils/sessionUtils';
+const tortoiseImage  = require('../../../images/tortoise.png');
+const rabbitImage  = require('../../../images/rabbit.png');
+const cockImage  = require('../../../images/cock.png');
+const loserImage  = require('../../../images/loser.png');
+const winnerImage  = require('../../../images/winner.png');
 
 class GameResults extends React.Component{
     constructor (props) {
@@ -25,13 +25,16 @@ class GameResults extends React.Component{
 
     getChartConfig () {
         this.playerStrengthMultiplier = 100 / this.getMaxArrayLength();
-        _.times(this.playerData.length, (key) => {
+        underscore.times(this.playerData.length, (key) => {
             let tempArray = [],
                 tempVar = 0;
-            _.times(this.playerData[key].points.length, (childKey) => {
+            underscore.times(this.playerData[key].points.length, (childKey) => {
                 tempVar += this.playerData[key].points[childKey];
                 tempArray.push(tempVar);
             })
+            if ((!this.playerData[key].rank || this.playerData[key].rank < 2) && this.playerData[key].points.length < this.getMaxArrayLength()) {
+                tempArray.push(tempVar);
+            }
             this.lineChartSeries.push(
                 {
                     name: this.playerData[key].name,
@@ -44,7 +47,7 @@ class GameResults extends React.Component{
 
     getMaxArrayLength () {
         let arrayLengths = [];
-        _.times(this.playerList.length, (key) => {
+        underscore.times(this.playerList.length, (key) => {
             arrayLengths.push(this.playerData[key].points.length);
         });
         return Math.max(...arrayLengths);
@@ -52,11 +55,11 @@ class GameResults extends React.Component{
 
     resetGame (event = {preventDefault(){}}) {
         event.preventDefault();
-        this.refs.notificationMessage.setAttribute('style', 'opacity: 1');
+        this.refs.notificationOverlay.setAttribute('style', 'display: block');
+        this.refs.notificationMessage.setAttribute('style', 'display: block');
         setTimeout(() => {
-            this.refs.notificationMessage.setAttribute('style', 'opacity: 0');
             this.props.resetGame();
-        }, 1500);
+        }, 1000);
     }
 
     getAvatarImage (playerRank) {
@@ -87,22 +90,23 @@ class GameResults extends React.Component{
     render () {
         return (
             <div className="gameResultsWrapper">
-                <div ref="notificationMessage" style={{opacity: 0}} className="alert alert-info notificationMessage">
-                    Thanks for playing.
-                </div>
+                <div ref="notificationOverlay" className="notificationOverlay"></div>
+                <div ref="notificationMessage" className="alert alert-info notificationMessage">Thanks for playing.</div>
                 <h3>Game Stats</h3>
                 <div className="resultsListing displayTable text-center">
-                    {_.map(this.playerData, (row, key) => {
-                        let backgroundColor = '#337ab7';
+                    {underscore.map(this.playerData, (row, key) => {
+                        let backgroundColor = '#337ab7', winnerStrength = 0;
                         if (row.rank && row.rank === this.playerData.length) {
                             backgroundColor = '#c9302c';
                         } else if (row.rank && row.rank > 1) {
                             backgroundColor = '#33B786';
+                        } else {
+                            winnerStrength = 1;
                         }
                         return (
                             <div key={key} style={{width: `${100/this.playerData.length}%`}} className="displayTableCell text-capitalize">
                                 {this.getAvatarImage(row.rank)}
-                                <span style={{backgroundColor: backgroundColor, paddingTop: `${row.points.length * this.playerStrengthMultiplier / 2}px`}}>
+                                <span style={{backgroundColor: backgroundColor, paddingTop: `${(row.points.length + winnerStrength) * this.playerStrengthMultiplier / 2}px`}}>
                                     <h4 className="rankLabel">{row.rank ? row.rank : '1'}</h4>
                                     {row.name}
                                 </span>
